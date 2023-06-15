@@ -1,0 +1,12 @@
+
+the following code is the same but the top one is much simpler 
+<?= $row['name'] ?>
+<?php echo $row['name'] ?> 
+
+
+// => steps of the edit and delete the user 
+  
+  Define the error as array 
+  connect to the database 
+       - 
+  display the user data 

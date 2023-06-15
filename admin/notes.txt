@@ -3,3 +3,46 @@ the following code is the same but the top one is much simpler
 <?= $row['name'] ?>
 <?php echo $row['name'] ?> 
 
+/// upload fiel in php
+
+steps : 
+  1- make the upload dir called uploads
+  2- make the upload var refering to the upload dir path 
+  3- check th file uploaded correctlly without any error 
+        if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) ;
+  4- we need the temp_name and the new of the file
+       $tmp_name = $_FILES['file']['tmp_name'];
+       $name = $_FILES['file']['name']; //the name here should the same in the form   
+       
+  5- move the uploaded file to the location
+         if (move_uploaded_file($tmp_name, $uploads_dir . $name)) 
+
+
+
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $uploads_dir = './uploads/'; // Specify the directory to which you want to upload the files
+    // Check if the file was uploaded without errors
+    if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['file']['tmp_name'];
+        $name = $_FILES['file']['name'];
+        
+        // Move the uploaded file to the desired location
+        if (move_uploaded_file($tmp_name, $uploads_dir . $name)) {
+            echo 'File uploaded successfully.';
+            echo "globals"."<>";
+            var_dump($GLOBALS)  ;
+        } else {
+            echo 'Error uploading file.';
+        }
+    } else {
+        echo 'File upload error.';
+    }
+}
+?>
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>

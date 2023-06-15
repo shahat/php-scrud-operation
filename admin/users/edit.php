@@ -5,8 +5,6 @@ if(! $conn){
     echo mysqli_connect_error();  
     exit; 
 } 
-
-
 //select user 
 $id = filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT);
 $select = "SELECT * FROM `users` WHERE `users`.`id` = " . $id;
@@ -55,39 +53,47 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="edit.css">
     <title>Edit user </title>
 </head>
 
 <body>
-    <!-- registeration from  -->
-    <form method="post">
-        <!-- Name  -->
-        <Label for="name"> Name </Label>
-        <input type="text" name="name" id="name" value="<?=
-         (isset($row['name'])) ?  $row['name']:''?>" />
-        <?php if(in_array("name", $error_fields)) echo 
-         "please enter your name" ?>
-        <br>
-        <input type="hidden" id='id' name="id" value="<?=
+    <div class="container">
+        <!-- registeration from  -->
+        <form method="post">
+            <!-- Name  -->
+            <Label for="name"> Name </Label>
+            <input type="text" name="name" id="name" value="<?=(isset($row['name'])) ?  $row['name']:''?>" />
+            <?php if(in_array("name", $error_fields)) echo "please enter your name" ?>
+            <br>
+            <input type="hidden" id='id' name="id" value="<?=
          (isset($row['id'])) ?  $row['id']:'' ?>" />
-        <!-- Email -->
-        <Label for="email"> email </Label>
-        <input type="email" name="email" id="email" value="<?=
+            <!-- Email -->
+            <Label for="email"> email </Label>
+            <input type="email" name="email" id="email" value="<?=
          (isset($row['email'])) ?  $row['email']:''  ?>" /> <?php if(in_array("email", $error_fields)) echo 
          "please enter your email" ?>
-        <br>
-        <!-- Password  -->
-        <Label for="password"> Password </Label>
-        <input type="password" name="password" id="password" placeholder="password" value="<?=
+            <br>
+            <!-- Password  -->
+            <Label for="password"> Password </Label>
+            <input type="password" name="password" id="password" placeholder="password" value="<?=
          (isset($row['password'])) ?  $row['password']:'' ?>" />
-        <?php if(in_array("password", $error_fields)) echo 
+            <?php if(in_array("password", $error_fields)) echo 
          "please enter your password not less than 6 " ?>
-        <br>
-        <input type="checkbox" name="admin" value="admin" <?= ($row['rule']) ? 'checked' : '' ?> />
-        <input type="submit" name="submit" value="edit user">
+            <br>
 
-    </form>
+            <label> <input type="checkbox" id="admin" name="admin" value="admin"
+                    <?= ($row['rule']) ? 'checked' : '' ?> /> Admin</label>
 
+
+            <input type="submit" name="submit" value="edit user">
+
+        </form>
+
+
+
+
+    </div>
 
 </body>
 

@@ -1,4 +1,8 @@
 <?php 
+// echo "<pre>";
+// var_dump($_POST);
+// echo "</pre>"
+// input back end calidation
 
 
 $error_fields = array();
@@ -23,7 +27,7 @@ if(! $conn){
     exit; // this for exit the script from continue 
 }
 
-// scape carracter to mitigate the sql injection 
+// Escape any spacial charachter to avoid the sql injection 
 $name = mysqli_escape_string($conn, $_POST["name"]);
 $email = mysqli_escape_string($conn, $_POST["email"]);
 $password = mysqli_escape_string($conn, $_POST["password"]);
@@ -31,8 +35,7 @@ $password = mysqli_escape_string($conn, $_POST["password"]);
 // insert the data 
 $query = "INSERT INTO `users` (`id`, `name`, `email`, `password`, `rule`) VALUES (NULL, '{$name}', '{$email}', '{$password}', '');";
 if(mysqli_query($conn,$query)){
-    echo "thank you , you information is saved ";
-     
+    echo "thank you , you information is saved ";  
 }
 else{
     echo $query;

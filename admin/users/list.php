@@ -1,4 +1,12 @@
 <?php 
+
+session_start();
+if(isset( $_SESSION['id'] )){echo "<p> welcome ". $_SESSION['email']."</p>";
+                            echo "<a href='logout.php'> LogOut </a>";}
+                            else{
+                                 header("location:/crud/login.php");
+                            }
+
 //open connection
 $conn = mysqli_connect("localhost", "root", "","iti");
 if(! $conn){
@@ -27,7 +35,15 @@ $result = mysqli_query($conn , $query);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    >
+    <link rel="stylesheet" href="list.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>Document</title>
+
+
+
 </head>
 
 <body>
@@ -36,7 +52,7 @@ $result = mysqli_query($conn , $query);
         <input type="text" name="search" id="search" placeholder="ENTER Name or Email to search ">
         <input type="submit" value="search">
     </form>
-    <table>
+    <table class="table-dark table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -56,15 +72,18 @@ $result = mysqli_query($conn , $query);
                 <td><?= $row['email'] ?></td>
                 <td>
                     <?php if ($row['avatar']) { ?>
-                    <img src="../uploads/<?= $row['avatar'] ?>" style="width:100px;height:100px" />
+                    <img src="../../uploads/<?= $row['avatar'] ?>" style="width:100px;height:100px" />
                     <?php } else { ?>
                     <span>no image</span>
                     <?php } ?>
 
                 </td>
                 <td><?= $row['rule'] ? 'yes' : 'No' ?></td>
-                <td> <a href="edit.php?id=<?=$row['id'] ?>">Edit</a> |
-                    <a href="delete.php?id=<?=$row['id'] ?>">Delete</a>
+                <td> <button type="button" class="btn btn-primary"><a
+                            href="edit.php?id=<?=$row['id'] ?>">Edit</a></button> |
+
+                    <button type="button" class="btn btn-danger"><a
+                            href="delete.php?id=<?=$row['id'] ?>">Delete</a></button>
             </tr>
 
             <?php  } ?>
